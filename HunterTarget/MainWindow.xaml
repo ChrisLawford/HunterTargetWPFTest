@@ -3,10 +3,295 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:HunterTarget"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        d:DataContext="{d:DesignInstance local:HunterTargetViewModel}"
+        Title="MainWindow" Height="800" Width="525">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextWrapping="Wrap" Text="Hunter-Target Relative Values" Grid.ColumnSpan="2" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+        <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" 
+                  SelectedItem="{Binding Selected_View_Option}"
+                  ItemsSource="{Binding View_Options}"
+                  >
+        </ComboBox>
+
+
+            <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Pitch Values" FontSize="16" TextDecorations="Underline"/>
+                <Image Grid.Row="1" Source="Images/CarSideView.png" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding Hunter_Pitch_Angle_Shown}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <Image Grid.Row="1" Source="Images/TrailorSideView.png" Grid.Column="0" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding Target_Pitch_Angle_Shown}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Text="Trailor Pitch angle: "/>
+                    <TextBlock Text="{Binding Target_Pitch_Angle}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Text="Hunter Pitch angle: "/>
+                    <TextBlock Text="{Binding Hunter_Pitch_Angle}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+                    <TextBlock Text="Target Pitch WRT Hunter:"/>
+                    <TextBlock Text="{Binding Hunter_Pitch_WRT_Target, StringFormat=-{0}}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                    <TextBlock Text="Hunter Pitch WRT Target:"/>
+                    <TextBlock Text="{Binding Hunter_Pitch_WRT_Target}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Yaw Values" FontSize="16" TextDecorations="Underline"/>
+                <Image Source="Images/CarTopView.jpg" Grid.Column="1" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding Hunter_Yaw_Angle_Shown}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <Image Source="Images/TrailorTopView.png" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding Target_Yaw_Angle_Shown}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Text="Trailor Pitch angle: "/>
+                    <TextBlock Text="{Binding Target_Yaw_Angle}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Text="Hunter Pitch angle: "/>
+                    <TextBlock Text="{Binding Hunter_Yaw_Angle}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+                    <TextBlock Text="Target Pitch WRT Hunter:"/>
+                    <TextBlock Text="{Binding Hunter_Yaw_WRT_Target, StringFormat=-{0}}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                    <TextBlock Text="Hunter Pitch WRT Target:"/>
+                    <TextBlock Text="{Binding Hunter_Yaw_WRT_Target}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="Images/CarRearView.png" Grid.Column="1" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding Hunter_Roll_Angle_Shown}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <Image Source="Images/TrailorRearView.png" Grid.Column="0" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="{Binding Target_Roll_Angle_Shown}"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Text="Trailor Pitch angle: "/>
+                    <TextBlock Text="{Binding Target_Roll_Angle}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Text="Hunter Pitch angle: "/>
+                    <TextBlock Text="{Binding Hunter_Roll_Angle}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+                    <TextBlock Text="Target Pitch WRT Hunter:"/>
+                    <TextBlock Text="{Binding Hunter_Roll_WRT_Target, StringFormat=-{0}}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                    <TextBlock Text="Hunter Pitch WRT Target:"/>
+                    <TextBlock Text="{Binding Hunter_Roll_WRT_Target}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="3" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Grid.Column="0" Content="Increase Target Pitch Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnTarget_Pitch_AngleIncreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="0" Content="Decrease Target Pitch Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnTarget_Pitch_AngleDecreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="1" Content="Increase Hunter Pitch Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnHunter_Pitch_AngleIncreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="1" Content="Decrease Hunter Pitch Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnHunter_Pitch_AngleDecreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="2" Content="Increase Target Yaw Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnTarget_Yaw_AngleIncreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="2" Content="Decrease Target Yaw Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnTarget_Yaw_AngleDecreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="3" Content="Increase Hunter Yaw Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnHunter_Yaw_AngleIncreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="3" Content="Decrease Hunter Yaw Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnHunter_Yaw_AngleDecreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="4" Content="Increase Target Roll Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnTarget_Roll_AngleIncreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="4" Content="Decrease Target Roll Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnTarget_Roll_AngleDecreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="5" Content="Increase Hunter Roll Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnHunter_Roll_AngleIncreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="5" Content="Decrease Hunter Roll Angle">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                            MethodName="OnHunter_Roll_AngleDecreased" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

@@ -22,6 +22,7 @@ namespace HunterTarget
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new HunterTargetViewModel();
         }
     }
 }
